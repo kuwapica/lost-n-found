@@ -8,4 +8,5 @@
         android:fontStyle="italic"
         android:fontWeight="400"
         android:font="@font/nunito_sans_italic" />
+
 </font-family>
