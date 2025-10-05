@@ -8,13 +8,10 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.lostnfound.ui.addpost.AddFragment"
-        android:label="AddFragment"
-        tools:layout="@layout/fragment_add">
-
+        android:label="AddFragment">
         <action
             android:id="@+id/action_addFragment_to_formLostFragment"
             app:destination="@id/formLostFragment" />
-
         <action
             android:id="@+id/action_addFragment_to_formFoundFragment"
             app:destination="@id/formFoundFragment" />
@@ -23,13 +20,9 @@
     <fragment
         android:id="@+id/formLostFragment"
         android:name="com.example.lostnfound.ui.addpost.FormLostFragment"
-        android:label="FormLostFragment"
-        tools:layout="@layout/fragment_form_lost" />
-
+        android:label="FormLostFragment" />
     <fragment
         android:id="@+id/formFoundFragment"
         android:name="com.example.lostnfound.ui.addpost.FormFoundFragment"
-        android:label="FormFoundFragment"
-        tools:layout="@layout/fragment_form_found" />
-
+        android:label="FormFoundFragment" />
 </navigation>
