@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/addFragment">
+
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.lostnfound.ui.addpost.AddFragment"
+        android:label="AddFragment">
+        <action
+            android:id="@+id/action_addFragment_to_formLostFragment"
+            app:destination="@id/formLostFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_formFoundFragment"
+            app:destination="@id/formFoundFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/formLostFragment"
+        android:name="com.example.lostnfound.ui.addpost.FormLostFragment"
+        android:label="FormLostFragment" />
+    <fragment
+        android:id="@+id/formFoundFragment"
+        android:name="com.example.lostnfound.ui.addpost.FormFoundFragment"
+        android:label="FormFoundFragment" />
+</navigation>

@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.lostnfound.dao.FoundItemDao
+import com.example.lostnfound.dao.LostItemDao
+import com.example.lostnfound.entity.FoundItemEntity
+import com.example.lostnfound.entity.LostItemEntity
 
-// nanti diuncomment terus yg lostitementity dihapus aja diganti punyamu
-//@Database(
-//    entities = [LostItemEntity::class], //kalo ada entity lain tambahin aja
-//    version = 1,
-//    exportSchema = false
-//)
+@Database(
+    entities = [LostItemEntity::class, FoundItemEntity::class], //kalo ada entity lain tambahin aja
+    version = 2,
+    exportSchema = false
+)
 abstract class LostFoundDatabase : RoomDatabase() {
-    // ini juga diuncomment terus ganti punyamu
-//    abstract fun lostItemDao() : LostItemDao // ini juga tambahin aja
+    abstract fun lostItemDao() : LostItemDao // ini juga tambahin aja
+    abstract fun foundItemDao() : FoundItemDao
 
     companion object {
         @Volatile
