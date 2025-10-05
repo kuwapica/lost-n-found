@@ -76,11 +76,11 @@
                     android:layout_gravity="center"
                     android:text="@string/label_up_foto"
                     android:fontFamily="@font/nunito_sans"
-                    android:textColor="@color/material_dynamic_neutral40"
+                    android:textColor="@color/grey"
                     android:textSize="18sp"
                     android:drawableStart="@drawable/ic_upload"
                     android:drawablePadding="8dp"
-                    android:drawableTint="@color/material_dynamic_neutral40"
+                    android:drawableTint="@color/grey"
                     android:gravity="center_horizontal"/>
             </FrameLayout>
         </androidx.cardview.widget.CardView>

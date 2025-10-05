@@ -10,4 +10,5 @@ data class FoundItem(
     val deskripsi: String = "",
     val imageUri: Uri? = null,
     val timestamp: Long = System.currentTimeMillis()
+
 )

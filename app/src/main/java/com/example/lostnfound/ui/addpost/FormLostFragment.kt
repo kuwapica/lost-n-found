@@ -45,6 +45,7 @@ class FormLostFragment : Fragment() {
         }
     }
 
+
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->

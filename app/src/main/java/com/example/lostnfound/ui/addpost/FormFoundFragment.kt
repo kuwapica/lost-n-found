@@ -44,6 +44,7 @@ class FormFoundFragment : Fragment() {
         }
     }
 
+
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->

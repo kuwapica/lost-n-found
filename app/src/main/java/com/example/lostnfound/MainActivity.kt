@@ -10,6 +10,7 @@ import com.example.lostnfound.databinding.FragmentAddBinding
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         // Cukup tampilkan layout yang berisi NavHostFragment
         setContentView(R.layout.activity_main)
     }

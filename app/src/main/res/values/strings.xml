@@ -4,6 +4,7 @@
     <string name="btn_lost">Lost</string>
     <string name="btn_found">Found</string>
 
+
     <string name="title_lost">Kehilangan barang</string>
     <string name="title_found">Menemukan barang</string>
     <string name="label_nama_brg">Nama Barang</string>

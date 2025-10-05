@@ -1,21 +1,31 @@
 package com.example.lostnfound.ui.viewmodel
 
+import android.app.Application
 import android.net.Uri
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.lostnfound.data.model.FormStatus
-import com.example.lostnfound.data.model.FoundItem
+import com.example.lostnfound.database.LostFoundDatabase
+import com.example.lostnfound.entity.FoundItemEntity
+import com.example.lostnfound.repository.FoundItemRepository
+import kotlinx.coroutines.launch
 
-class FoundItemViewModel : ViewModel() {
+class FoundItemViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: FoundItemRepository
+    val allItems: LiveData<List<FoundItemEntity>>
+
+    init {
+        val foundItemDao = LostFoundDatabase.getDatabase(application).foundItemDao()
+        repository = FoundItemRepository(foundItemDao)
+        allItems = repository.allItems
+    }
     private val _formStatus = MutableLiveData<FormStatus>(FormStatus.Idle)
     val formStatus: LiveData<FormStatus> = _formStatus
 
     private val _selectedImage = MutableLiveData<Uri?>()
     val selectedImage: LiveData<Uri?> = _selectedImage
-
-    private val _foundItems = MutableLiveData<List<FoundItem>>(emptyList())
-    val foundItems: LiveData<List<FoundItem>> = _foundItems
 
     fun setSelectedImage(uri: Uri?) {
         _selectedImage.value = uri
@@ -58,20 +68,38 @@ class FoundItemViewModel : ViewModel() {
             }
         }
 
-        val foundItem = FoundItem(
-            id = System.currentTimeMillis().toString(),
-            namaBarang = namaBarang,
-            lokasiFound = lokasiFound,
-            waktu = waktu,
-            deskripsi = deskripsi,
-            imageUri = imageUri
-        )
+        viewModelScope.launch {
+            try {
+                val foundItem = FoundItemEntity(
+                    namaBarang = namaBarang,
+                    lokasiFound = lokasiFound,
+                    waktu = waktu,
+                    deskripsi = deskripsi,
+                    imagePath = imageUri.toString(),
+                    status = "found"
+                )
 
-        val currentList = _foundItems.value.orEmpty().toMutableList()
-        currentList.add(foundItem)
-        _foundItems.value = currentList
+                repository.insert(foundItem)
 
-        _formStatus.value = FormStatus.Success("Data berhasil disimpan")
+                _formStatus.value = FormStatus.Success("Data berhasil disimpan")
+            } catch (e: Exception) {
+                _formStatus.value = FormStatus.Error("Gagal menyimpan data: ${e.message}")
+            }
+        }
+    }
+
+    fun getItemByStatus(status: String): LiveData<List<FoundItemEntity>> {
+        return repository.getItemByStatus(status)
+    }
+
+    fun searchItems(query: String): LiveData<List<FoundItemEntity>> {
+        return repository.searchItems(query)
+    }
+
+    fun deleteItem(item: FoundItemEntity) {
+        viewModelScope.launch {
+            repository.delete(item)
+        }
     }
 
     fun resetFormStatus() {
