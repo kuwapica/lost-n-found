@@ -10,25 +10,24 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.lostnfound.R
 import com.example.lostnfound.data.model.FormStatus
-import com.example.lostnfound.databinding.FragmentFormLostBinding
-import com.example.lostnfound.ui.viewmodel.LostItemViewModel
+import com.example.lostnfound.databinding.FragmentFormFoundBinding
+import com.example.lostnfound.ui.viewmodel.FoundItemViewModel
 import java.util.Locale
 
-class FormLostFragment : Fragment() {
-    private var _binding: FragmentFormLostBinding? = null
+class FormFoundFragment : Fragment() {
+    private var _binding: FragmentFormFoundBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LostItemViewModel by viewModels()
+    private val viewModel: FoundItemViewModel by viewModels()
     private var selectedDate: Calendar = Calendar.getInstance()
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -60,7 +59,7 @@ class FormLostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFormLostBinding.inflate(inflater, container, false)
+        _binding = FragmentFormFoundBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -178,16 +177,16 @@ class FormLostFragment : Fragment() {
 
     private fun submitForm() {
         val namaBarang = binding.etNamaBarang.text.toString().trim()
-        val lokasiLost = binding.etLokasiLost.text.toString().trim()
+        val lokasiFound = binding.etLokasiFound.text.toString().trim()
         val waktu = binding.etWaktu.text.toString().trim()
         val deskripsi = binding.etDeskripsi.text.toString().trim()
         val imageUri = viewModel.selectedImage.value
 
         binding.etNamaBarang.error = null
-        binding.etLokasiLost.error = null
+        binding.etLokasiFound.error = null
         binding.etDeskripsi.error = null
 
-        viewModel.submitLostItem(namaBarang, lokasiLost, waktu, deskripsi, imageUri)
+        viewModel.submitFoundItem(namaBarang, lokasiFound, waktu, deskripsi, imageUri)
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -22,7 +21,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="@string/btn_back"
+            android:contentDescription="Back"
             app:tint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/title_lost"
+            android:text="@string/title_found"
             android:fontFamily="@font/nunito_sans"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -42,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_back"
             app:layout_constraintBottom_toBottomOf="@+id/btn_back"/>
-        
+
         <androidx.cardview.widget.CardView
             android:id="@+id/img_upload_container"
             android:layout_width="0dp"
@@ -56,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title">
-            
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -121,11 +120,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/tv_lokasi_lost"
+            android:id="@+id/tv_lokasi_found"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/label_lokasi_lost"
+            android:text="@string/label_lokasi_found"
             android:fontFamily="@font/nunito_sans"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -134,7 +133,7 @@
             app:layout_constraintTop_toBottomOf="@id/til_nama_barang"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_lokasi_lost"
+            android:id="@+id/til_lokasi_found"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -145,9 +144,9 @@
             app:boxCornerRadiusTopStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lokasi_lost">
+            app:layout_constraintTop_toBottomOf="@id/tv_lokasi_found">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_lokasi_lost"
+                android:id="@+id/et_lokasi_found"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -166,7 +165,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_lokasi_lost"/>
+            app:layout_constraintTop_toBottomOf="@id/til_lokasi_found"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_waktu"
@@ -235,9 +234,10 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:backgroundTint="@color/yellow"
+            android:backgroundTint="@color/black"
             android:text="@string/btn_submit"
-            android:textColor="@color/black"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/yellow"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="8dp"
@@ -251,9 +251,10 @@
             android:layout_height="56dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/yellow"
             android:text="@string/btn_cancel"
-            android:textColor="@color/yellow"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="8dp"
