@@ -100,7 +100,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun isValidUnsoedEmail(email: String): Boolean {
-        val regex = "^[a-zA-Z0-9._]+@unsoed\\.ac\\.id$".toRegex()
+        val regex = "^[a-zA-Z0-9._%+-]+@(unsoed\\.ac\\.id|mhs\\.unsoed\\.ac\\.id)$".toRegex()
         return regex.matches(email)
     }
 
@@ -108,6 +108,7 @@ class SignInActivity : AppCompatActivity() {
         // ... (kode snackbar Anda sudah benar, tidak perlu diubah)
         val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
+        snackbarView.backgroundTintList=null
 
         // Set background color kuning
         snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))

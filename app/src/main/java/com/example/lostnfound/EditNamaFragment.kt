@@ -103,6 +103,7 @@ class EditNamaFragment : Fragment() {
     private fun showCustomSnackbar(message: String, colorResId: Int) {
         val snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
+        snackbarView.backgroundTintList=null
 
         // Warna background
         snackbarView.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))

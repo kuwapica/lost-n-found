@@ -77,8 +77,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadUserData() {
-        // Implementasi Anda untuk memuat data pengguna sudah benar
-        // (Menggunakan UserPreferences, Coroutine, dan Database)
         val userPreferences = UserPreferences(requireContext())
         val database = AppDatabase.getDatabase(requireContext())
         val email = userPreferences.getLoggedInEmail()
@@ -86,11 +84,11 @@ class ProfileFragment : Fragment() {
         if (email != null) {
             lifecycleScope.launch {
                 val user = database.userDao().getUserByEmail(email)
-                activity?.runOnUiThread {
-                    user?.let {
-                        binding.textName.setText(it.nama)
-                        binding.textEmail.setText(it.email)
-                    }
+                // Pindahkan ke main thread untuk update UI
+                user?.let {
+                    // Update UI di main thread
+                    binding.textName.setText(it.nama)
+                    binding.textEmail.setText(it.email)
                 }
             }
         }

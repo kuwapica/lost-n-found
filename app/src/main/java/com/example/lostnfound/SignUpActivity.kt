@@ -64,9 +64,8 @@ class SignUpActivity : AppCompatActivity() {
             // 2. Tampilkan Snackbar bahwa pendaftaran berhasil.
             showSuccessSnackbar("Registrasi berhasil!")
 
-            // 3. Arahkan pengguna langsung ke MainActivity, bukan SignInActivity.
             Handler(Looper.getMainLooper()).postDelayed({
-                val intent = Intent(this, MainActivity::class.java) // <-- Tujuan diubah ke MainActivity
+                val intent = Intent(this, SignInActivity::class.java)
 
                 // 4. Gunakan flags untuk membersihkan riwayat activity sebelumnya.
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -122,7 +121,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun isValidUnsoedEmail(email: String): Boolean {
-        val regex = "^[a-zA-Z0-9._]+@unsoed\\.ac\\.id$".toRegex()
+        val regex = "^[a-zA-Z0-9._%+-]+@(unsoed\\.ac\\.id|mhs\\.unsoed\\.ac\\.id)$".toRegex()
         return regex.matches(email)
     }
 
@@ -135,6 +134,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun showSuccessSnackbar(message: String) {
         val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
+        snackbarView.backgroundTintList=null
 
         // Set background color kuning
         snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))

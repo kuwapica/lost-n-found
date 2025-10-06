@@ -105,7 +105,7 @@
             android:layout_marginBottom="20dp" />
 
         <Button
-            android:id="@+id/btn_keluar"
+            android:id="@+id/btnKeluar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Keluar"

@@ -90,6 +90,8 @@ class EditPasswordFragment : Fragment() {
         val parent = requireActivity().findViewById(android.R.id.content) as FrameLayout
         val snackbar = Snackbar.make(parent, message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
+        snackbarView.backgroundTintList=null
+
         snackbarView.setBackgroundColor(ContextCompat.getColor(requireContext(), colorRes))
         snackbarView.setPadding(32, 48, 32, 48)
         snackbarView.minimumHeight = 120
