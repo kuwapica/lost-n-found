@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="24dp"
+    tools:context=".SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="120dp"/>
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tvSubtitleSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silakan daftar dengan email unsoed anda."
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Label Nama -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="32dp"/>
+
+        <!-- Nama Input -->
+        <EditText
+            android:id="@+id/etNamaSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan nama Anda"
+            android:inputType="textPersonName"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9E9E9E" />
+
+        <!-- Label Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Email Input -->
+        <EditText
+            android:id="@+id/etEmailSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan email unsoed Anda"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9E9E9E" />
+
+        <!-- Label Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Password Input -->
+        <EditText
+            android:id="@+id/etPasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan password Anda"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9E9E9E" />
+
+        <!-- Password Error -->
+        <TextView
+            android:id="@+id/tvPasswordError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            android:fontFamily="@font/nunito_sans"
+            android:paddingTop="4dp"/>
+
+        <!-- Label Konfirmasi Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Konfirmasi Password"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Konfirmasi Password Input -->
+        <EditText
+            android:id="@+id/etConfirmPasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan konfirmasi password Anda"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:fontFamily="@font/nunito_sans"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9E9E9E" />
+
+        <!-- Button Daftar -->
+
+        <!-- Sudah punya akun -->
+        <Button
+            android:id="@+id/btnDaftar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/yellow"
+            android:fontFamily="@font/nunito_sans"
+            android:text="daftar"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="19sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sudah memiliki akun? "
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:fontFamily="@font/nunito_sans"/>
+
+            <TextView
+                android:id="@+id/tvMasuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masuk"
+                android:textColor="@color/yellow"
+                android:textSize="14sp"
+                android:padding="1dp"
+                android:fontFamily="@font/nunito_sans"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
