@@ -41,10 +41,7 @@ class ProfileFragment : Fragment() {
         loadUserData()
 
         binding.btnEditProfile.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, EditProfileFragment()) // Ganti dengan EditProfileFragment
-                .addToBackStack(null) // Ini PENTING! Agar tombol "Back" bisa kembali ke ProfileFragment
-                .commit()
+            findNavController().navigate(R.id.action_profile_to_editProfile)
         }
 
         // ================================================================
