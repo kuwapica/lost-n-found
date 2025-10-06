@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 // Hapus import NavController jika hanya digunakan untuk Edit Profil
 import com.example.lostnfound.database.AppDatabase
 import com.example.lostnfound.databinding.FragmentProfileBinding
@@ -40,8 +41,10 @@ class ProfileFragment : Fragment() {
         loadUserData()
 
         binding.btnEditProfile.setOnClickListener {
-            // Logika untuk edit profil
-            // ...
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, EditProfileFragment()) // Ganti dengan EditProfileFragment
+                .addToBackStack(null) // Ini PENTING! Agar tombol "Back" bisa kembali ke ProfileFragment
+                .commit()
         }
 
         // ================================================================
