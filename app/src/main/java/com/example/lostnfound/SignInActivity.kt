@@ -50,17 +50,11 @@ class SignInActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
 
             if (validateSignIn(email, password)) {
-                // TODO: Implementasikan logika autentikasi yang sebenarnya di sini
-                // (misalnya dengan Firebase, API, dll.)
+                // TODO: Validasi dengan database (cek apakah email & password cocok)
 
-                // --- TAMBAHAN 1: Simpan Status Login ---
-                // Setelah login berhasil, simpan statusnya di SharedPreferences.
-                val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
-                with(sharedPreferences.edit()) {
-                    putBoolean("isLoggedIn", true)
-                    apply() // Simpan perubahan
-                }
-                // ----------------------------------------
+                // Simpan session login menggunakan UserPreferences
+                val userPreferences = com.example.lostnfound.utils.UserPreferences(this)
+                userPreferences.saveLoginSession(email) // <-- INI YANG PENTING!
 
                 // Show success snackbar
                 showSuccessSnackbar("Login berhasil!")
@@ -68,15 +62,10 @@ class SignInActivity : AppCompatActivity() {
                 // Navigate to MainActivity after 1 second
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
-
-                    // --- TAMBAHAN 2: Bersihkan Riwayat Activity ---
-                    // Flag ini penting agar pengguna tidak bisa kembali ke halaman login.
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    // -----------------------------------------------
-
                     startActivity(intent)
-                    finish() // Tutup SignInActivity secara permanen
-                }, 1000) // Penundaan 1 detik untuk menampilkan snackbar
+                    finish()
+                }, 1000)
             }
         }
     }

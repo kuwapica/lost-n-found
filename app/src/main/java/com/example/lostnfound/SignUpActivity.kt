@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.example.lostnfound.database.AppDatabase
+import com.example.lostnfound.database.User
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -55,24 +59,41 @@ class SignUpActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
             val confirmPassword = etConfirmPassword.text.toString().trim()
 
-            val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
-            with(sharedPreferences.edit()) {
-                putBoolean("isLoggedIn", true)
-                apply() // Simpan perubahan
+            // Validasi dulu
+            if (validateSignUp(nama, email, password, confirmPassword)) {
+                // Simpan user ke database
+                lifecycleScope.launch {
+                    val database = AppDatabase.getDatabase(this@SignUpActivity)
+
+                    // Cek apakah email sudah terdaftar
+                    val emailExists = database.userDao().isEmailExists(email)
+
+                    if (emailExists > 0) {
+                        runOnUiThread {
+                            etEmail.error = "Email sudah terdaftar"
+                        }
+                    } else {
+                        // Insert user baru ke database
+                        val newUser = User(
+                            email = email,
+                            nama = nama,
+                            password = password
+                        )
+                        database.userDao().insertUser(newUser)
+
+                        runOnUiThread {
+                            showSuccessSnackbar("Registrasi berhasil!")
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finish()
+                            }, 1000)
+                        }
+                    }
+                }
             }
-
-            // 2. Tampilkan Snackbar bahwa pendaftaran berhasil.
-            showSuccessSnackbar("Registrasi berhasil!")
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                val intent = Intent(this, SignInActivity::class.java)
-
-                // 4. Gunakan flags untuk membersihkan riwayat activity sebelumnya.
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                startActivity(intent)
-                finish() // Tutup SignUpActivity secara permanen
-            }, 1000) // Tunda 1 detik agar Snackbar terlihat
         }
 
         // TextView Masuk - navigate to SignInActivity

@@ -1,17 +1,15 @@
 package com.example.lostnfound
 
-import android.content.Context // <-- TAMBAHKAN import ini
-import android.content.Intent  // <-- TAMBAHKAN import ini
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-// Hapus import NavController jika hanya digunakan untuk Edit Profil
 import com.example.lostnfound.database.AppDatabase
 import com.example.lostnfound.databinding.FragmentProfileBinding
 import com.example.lostnfound.utils.UserPreferences
@@ -22,77 +20,80 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    // Hapus properti yang tidak digunakan jika ada
-    // private lateinit var database: AppDatabase
-    // private lateinit var userPreferences: UserPreferences
+    private lateinit var database: AppDatabase
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        // Initialize
+        database = AppDatabase.getDatabase(requireContext())
+        userPreferences = UserPreferences(requireContext())
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Muat data user (kode Anda sudah benar)
+        // Set font
+        val nunito = ResourcesCompat.getFont(requireContext(), R.font.nunito_sans)
+        binding.textName.typeface = nunito
+        binding.textEmail.typeface = nunito
+        binding.btnEditProfile.typeface = nunito
+        binding.btnKeluar.typeface = nunito
+
+        // Load data user
         loadUserData()
 
+        // Button Edit Profile
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.action_profile_to_editProfile)
         }
 
-        // ================================================================
-        // TAMBAHKAN BLOK KODE INI UNTUK FUNGSI LOGOUT
-        // ================================================================
+        // Button Keluar (Logout)
         binding.btnKeluar.setOnClickListener {
-            // 1. Dapatkan SharedPreferences yang kita gunakan di SplashActivity
-            val sharedPreferences = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            // Clear session
+            userPreferences.clearSession()
 
-            // 2. Ubah status login menjadi false
-            with(sharedPreferences.edit()) {
-                putBoolean("isLoggedIn", false)
-                // Anda juga bisa menghapus isFirstTime jika perlu, tapi isLoggedIn sudah cukup
-                apply()
-            }
-
-            // 3. Buat Intent untuk pindah ke SignInActivity
+            // Pindah ke SignInActivity
             val intent = Intent(requireActivity(), SignInActivity::class.java)
-
-            // 4. Set flag untuk membersihkan semua activity sebelumnya (termasuk MainActivity)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-            // 5. Mulai activity baru
             startActivity(intent)
-
-            // 6. Tutup activity saat ini (MainActivity) agar tidak bisa diakses lagi
             requireActivity().finish()
         }
-        // ================================================================
     }
 
     private fun loadUserData() {
-        val userPreferences = UserPreferences(requireContext())
-        val database = AppDatabase.getDatabase(requireContext())
         val email = userPreferences.getLoggedInEmail()
 
         if (email != null) {
             lifecycleScope.launch {
                 val user = database.userDao().getUserByEmail(email)
-                // Pindahkan ke main thread untuk update UI
-                user?.let {
-                    // Update UI di main thread
-                    binding.textName.setText(it.nama)
-                    binding.textEmail.setText(it.email)
+
+                // Update UI di main thread
+                activity?.runOnUiThread {
+                    if (user != null) {
+                        binding.textName.text = user.nama
+                        binding.textEmail.text = user.email
+                    } else {
+                        binding.textName.text = "Data tidak ditemukan"
+                        binding.textEmail.text = "Data tidak ditemukan"
+                    }
                 }
             }
+        } else {
+            binding.textName.text = "Tidak ada user login"
+            binding.textEmail.text = "-"
         }
     }
 
     override fun onResume() {
         super.onResume()
+        // Reload data setiap kali fragment ditampilkan (termasuk setelah edit nama)
         loadUserData()
     }
 

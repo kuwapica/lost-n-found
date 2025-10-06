@@ -54,8 +54,9 @@ class EditNamaFragment : Fragment() {
 
         binding.btnSimpan.setOnClickListener {
             val newName = binding.etNamaEdit.text.toString().trim()
+
             if (newName.isEmpty()) {
-                showCustomSnackbar("Nama tidak boleh kosong", R.color.red)
+                showCustomSnackbar("Nama tidak boleh kosong", R.color.yellow)
                 isSaved = false
             } else {
                 val email = userPreferences.getLoggedInEmail()
@@ -71,6 +72,9 @@ class EditNamaFragment : Fragment() {
                             }, 700)
                         }
                     }
+                } else {
+                    showCustomSnackbar("Terjadi kesalahan", R.color.red)
+                    isSaved = false
                 }
             }
         }
@@ -101,14 +105,12 @@ class EditNamaFragment : Fragment() {
     }
 
     private fun showCustomSnackbar(message: String, colorResId: Int) {
-        val snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
+        val parent = requireActivity().findViewById(android.R.id.content) as FrameLayout
+        val snackbar = Snackbar.make(parent, message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
-        snackbarView.backgroundTintList=null
+        snackbarView.backgroundTintList = null
 
-        // Warna background
         snackbarView.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
-
-        // Tambah padding dan ukuran
         snackbarView.setPadding(32, 48, 32, 48)
         snackbarView.minimumHeight = 120
 

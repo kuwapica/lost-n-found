@@ -21,6 +21,7 @@ class EditPasswordFragment : Fragment() {
     private val binding get() = _binding!!
     private var isSaved = false
     private var passwordVisible = false
+    private var confirmPasswordVisible = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentEditPasswordBinding.inflate(inflater, container, false)
@@ -47,6 +48,20 @@ class EditPasswordFragment : Fragment() {
                 binding.btnToggleCurrentPasswordEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
             }
             binding.etPasswordEdit.setSelection(binding.etPasswordEdit.text.length)
+        }
+
+        binding.btnToggleNewPasswordEye.setOnClickListener {
+            confirmPasswordVisible = !confirmPasswordVisible
+            if (confirmPasswordVisible) {
+                binding.etPasswordConfirm.inputType = android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.btnToggleNewPasswordEye.setImageResource(R.drawable.ic_eye_open)
+                binding.btnToggleNewPasswordEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.yellow))
+            } else {
+                binding.etPasswordConfirm.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.btnToggleNewPasswordEye.setImageResource(R.drawable.ic_eye_closed)
+                binding.btnToggleNewPasswordEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+            binding.etPasswordConfirm.setSelection(binding.etPasswordConfirm.text.length)
         }
 
         binding.btnSimpan.setOnClickListener {
