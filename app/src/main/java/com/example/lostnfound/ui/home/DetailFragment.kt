@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.navigateUp
 import com.bumptech.glide.Glide
 import com.example.lostnfound.databinding.FragmentDetailBinding
 import com.example.lostnfound.entity.FoundItemEntity
@@ -35,6 +37,10 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp() // Fungsi untuk kembali ke layar sebelumnya
+        }
 
         // 1. Perintahkan ViewModel untuk mengambil data (hanya panggil sekali)
         viewModel.loadItem(args.itemId, args.itemType)

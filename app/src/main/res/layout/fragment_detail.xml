@@ -11,28 +11,50 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Tombol Kembali di Pojok Kiri Atas -->
+        <LinearLayout
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_yellow_rounded"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Kembali"
+                app:srcCompat="@drawable/ic_back_arrow"
+                app:tint="@color/black" />
+        </LinearLayout>
+
+        <!-- DIUBAH: Komentar yang salah posisi telah dipindahkan -->
+        <!-- ImageView ini berada di bawah tombol kembali -->
         <ImageView
             android:id="@+id/iv_detail_foto"
             android:layout_width="0dp"
             android:layout_height="300dp"
+            android:layout_marginTop="16dp"
             android:background="#CCCCCC"
-            android:scaleType="centerCrop"
             android:contentDescription="Foto barang detail"
-            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
+        <!-- Sisa layout tidak perlu diubah -->
         <TextView
             android:id="@+id/tv_detail_nama_barang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/iv_detail_foto"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_foto"
             tools:text="Nama Barang Detail" />
 
         <TextView
@@ -42,17 +64,17 @@
             android:layout_marginTop="8dp"
             android:text="Lokasi:"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_nama_barang"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_nama_barang" />
 
         <TextView
             android:id="@+id/tv_detail_lokasi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/tv_detail_lokasi_label"
-            app:layout_constraintStart_toEndOf="@id/tv_detail_lokasi_label"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_detail_lokasi_label"
+            app:layout_constraintTop_toTopOf="@id/tv_detail_lokasi_label"
             tools:text="Lokasi barang ditemukan/hilang" />
 
         <TextView
@@ -62,17 +84,17 @@
             android:layout_marginTop="4dp"
             android:text="Waktu:"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_lokasi"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_lokasi" />
 
         <TextView
             android:id="@+id/tv_detail_waktu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/tv_detail_waktu_label"
-            app:layout_constraintStart_toEndOf="@id/tv_detail_waktu_label"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_detail_waktu_label"
+            app:layout_constraintTop_toTopOf="@id/tv_detail_waktu_label"
             tools:text="10 Oktober 2025" />
 
         <TextView
@@ -82,17 +104,17 @@
             android:layout_marginTop="8dp"
             android:text="Deskripsi:"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_waktu"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_waktu" />
 
         <TextView
             android:id="@+id/tv_detail_deskripsi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_deskripsi_label"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_deskripsi_label"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
