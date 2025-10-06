@@ -3,12 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/addFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/addFragment"
+        android:id="@+id/nav_home"
+        android:name="com.example.lostnfound.ui.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.lostnfound.ui.home.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="itemId"
+            app:argType="integer" />
+        <argument
+            android:name="itemType"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_submit"
         android:name="com.example.lostnfound.ui.addpost.AddFragment"
-        android:label="AddFragment">
+        android:label="Add Post"
+        tools:layout="@layout/fragment_add">
+
         <action
             android:id="@+id/action_addFragment_to_formLostFragment"
             app:destination="@id/formLostFragment" />
@@ -17,6 +40,50 @@
             app:destination="@id/formFoundFragment" />
     </fragment>
 
+    <!-- Profile -->
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.lostnfound.ProfileFragment"
+        android:label="Profile">
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <!-- Edit Profil -->
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.lostnfound.EditProfileFragment"
+        android:label="Edit Profil">
+        <action
+            android:id="@+id/action_editProfile_to_editNama"
+            app:destination="@id/editNamaFragment" />
+        <action
+            android:id="@+id/action_editProfile_to_editPassword"
+            app:destination="@id/editPasswordFragment" />
+    </fragment>
+
+    <!-- Edit Nama -->
+    <fragment
+        android:id="@+id/editNamaFragment"
+        android:name="com.example.lostnfound.EditNamaFragment"
+        android:label="Edit Nama">
+        <action
+            android:id="@+id/action_editNama_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <!-- Edit Password -->
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="com.example.lostnfound.EditPasswordFragment"
+        android:label="Edit Password">
+        <action
+            android:id="@+id/action_editPassword_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <!-- Fragment Tujuan -->
     <fragment
         android:id="@+id/formLostFragment"
         android:name="com.example.lostnfound.ui.addpost.FormLostFragment"

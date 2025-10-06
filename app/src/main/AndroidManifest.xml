@@ -6,7 +6,6 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LostNFound">
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity android:name=".SignUpActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+    </application>
 </manifest>

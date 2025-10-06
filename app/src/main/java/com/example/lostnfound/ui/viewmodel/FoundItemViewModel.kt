@@ -76,7 +76,8 @@ class FoundItemViewModel(application: Application) : AndroidViewModel(applicatio
                     waktu = waktu,
                     deskripsi = deskripsi,
                     imagePath = imageUri.toString(),
-                    status = "found"
+                    status = "found",
+                    timestamp = System.currentTimeMillis()
                 )
 
                 repository.insert(foundItem)

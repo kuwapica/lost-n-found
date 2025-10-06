@@ -1,5 +1,6 @@
 package com.example.lostnfound
 
+import android.content.Context // <-- Tambahkan import ini
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -49,14 +50,33 @@ class SignInActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
 
             if (validateSignIn(email, password)) {
+                // TODO: Implementasikan logika autentikasi yang sebenarnya di sini
+                // (misalnya dengan Firebase, API, dll.)
+
+                // --- TAMBAHAN 1: Simpan Status Login ---
+                // Setelah login berhasil, simpan statusnya di SharedPreferences.
+                val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putBoolean("isLoggedIn", true)
+                    apply() // Simpan perubahan
+                }
+                // ----------------------------------------
+
                 // Show success snackbar
                 showSuccessSnackbar("Login berhasil!")
 
-                // Navigate to BerandaLost after 1 second
+                // Navigate to MainActivity after 1 second
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, SignUpActivity::class.java))
-                    finish()
-                }, 1000)
+                    val intent = Intent(this, MainActivity::class.java)
+
+                    // --- TAMBAHAN 2: Bersihkan Riwayat Activity ---
+                    // Flag ini penting agar pengguna tidak bisa kembali ke halaman login.
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    // -----------------------------------------------
+
+                    startActivity(intent)
+                    finish() // Tutup SignInActivity secara permanen
+                }, 1000) // Penundaan 1 detik untuk menampilkan snackbar
             }
         }
     }
@@ -76,8 +96,6 @@ class SignInActivity : AppCompatActivity() {
             etPassword.error = "Password tidak boleh kosong"
             return false
         }
-
-        // TODO: Implement actual authentication logic here
         return true
     }
 
@@ -87,6 +105,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun showSuccessSnackbar(message: String) {
+        // ... (kode snackbar Anda sudah benar, tidak perlu diubah)
         val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
 

@@ -35,16 +35,16 @@ class EditPasswordFragment : Fragment() {
         binding.etPasswordConfirm.typeface = nunito
         binding.btnSimpan.typeface = nunito
 
-        binding.btnToggleEye.setOnClickListener {
+        binding.btnToggleCurrentPasswordEye.setOnClickListener {
             passwordVisible = !passwordVisible
             if (passwordVisible) {
                 binding.etPasswordEdit.inputType = android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                binding.btnToggleEye.setImageResource(R.drawable.ic_eye_open)
-                binding.btnToggleEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.yellow))
+                binding.btnToggleCurrentPasswordEye.setImageResource(R.drawable.ic_eye_open)
+                binding.btnToggleCurrentPasswordEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.yellow))
             } else {
                 binding.etPasswordEdit.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-                binding.btnToggleEye.setImageResource(R.drawable.ic_eye_closed)
-                binding.btnToggleEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.btnToggleCurrentPasswordEye.setImageResource(R.drawable.ic_eye_closed)
+                binding.btnToggleCurrentPasswordEye.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
             }
             binding.etPasswordEdit.setSelection(binding.etPasswordEdit.text.length)
         }

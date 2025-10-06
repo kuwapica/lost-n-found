@@ -183,6 +183,7 @@ class FormFoundFragment : Fragment() {
         val deskripsi = binding.etDeskripsi.text.toString().trim()
         val imageUri = viewModel.selectedImage.value
 
+
         binding.etNamaBarang.error = null
         binding.etLokasiFound.error = null
         binding.etDeskripsi.error = null

@@ -1,5 +1,6 @@
 package com.example.lostnfound
 
+import android.content.Context // <-- Tambahkan import ini
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -54,21 +55,31 @@ class SignUpActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
             val confirmPassword = etConfirmPassword.text.toString().trim()
 
-            if (validateSignUp(nama, email, password, confirmPassword)) {
-                // Snackbar pop up register berhasil
-                showSuccessSnackbar("Register telah berhasil")
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, SignInActivity::class.java))
-                    finish()
-                }, 1000)
+            val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putBoolean("isLoggedIn", true)
+                apply() // Simpan perubahan
             }
+
+            // 2. Tampilkan Snackbar bahwa pendaftaran berhasil.
+            showSuccessSnackbar("Registrasi berhasil!")
+
+            // 3. Arahkan pengguna langsung ke MainActivity, bukan SignInActivity.
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this, MainActivity::class.java) // <-- Tujuan diubah ke MainActivity
+
+                // 4. Gunakan flags untuk membersihkan riwayat activity sebelumnya.
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                startActivity(intent)
+                finish() // Tutup SignUpActivity secara permanen
+            }, 1000) // Tunda 1 detik agar Snackbar terlihat
         }
 
         // TextView Masuk - navigate to SignInActivity
         tvMasuk.setOnClickListener {
             startActivity(Intent(this, SignInActivity::class.java))
-            finish()
+//            finish()
         }
     }
 
