@@ -1,5 +1,6 @@
 package com.example.lostnfound.entity
 
+import android.provider.ContactsContract
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -14,5 +15,6 @@ data class FoundItemEntity(
     val deskripsi: String,
     val imagePath: String?,
     val timestamp: Long = System.currentTimeMillis(),
-    val status: String = "lost"
+    val status: String = "found",
+    val userEmail: String
 )

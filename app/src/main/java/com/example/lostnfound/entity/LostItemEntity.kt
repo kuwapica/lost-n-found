@@ -14,5 +14,6 @@ data class LostItemEntity(
     val deskripsi: String,
     val imagePath: String?,
     val timestamp: Long = System.currentTimeMillis(),
-    val status: String = "lost"
+    val status: String = "lost",
+    val userEmail: String
 )

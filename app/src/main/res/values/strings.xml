@@ -11,10 +11,12 @@
     <string name="label_lokasi_found">Lokasi Ditemukan</string>
     <string name="label_waktu">Waktu</string>
     <string name="label_deskripsi">Deskripsi</string>
+    <string name="ket_deskripsi">(Silakan cantumkan sosial media Anda yang dapat dihubungi seperti: whatsapp, instagram, facebook, dan semacamnya)</string>
     <string name="btn_submit">Submit</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_back">Back</string>
     <string name="label_up_foto">Upload Gambar</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

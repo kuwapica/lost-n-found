@@ -10,16 +10,19 @@ import com.example.lostnfound.data.model.FormStatus
 import com.example.lostnfound.database.LostFoundDatabase
 import com.example.lostnfound.entity.LostItemEntity
 import com.example.lostnfound.repository.LostItemRepository
+import com.example.lostnfound.utils.UserPreferences
 import kotlinx.coroutines.launch
 
 class LostItemViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: LostItemRepository
+    private val userPreferences: UserPreferences
     val allItems: LiveData<List<LostItemEntity>>
 
     init {
         val lostItemDao = LostFoundDatabase.getDatabase(application).lostItemDao()
         repository = LostItemRepository(lostItemDao)
         allItems = repository.allItems
+        userPreferences = UserPreferences(application)
     }
     private val _formStatus = MutableLiveData<FormStatus>(FormStatus.Idle)
     val formStatus: LiveData<FormStatus> = _formStatus
@@ -68,6 +71,12 @@ class LostItemViewModel(application: Application) : AndroidViewModel(application
             }
         }
 
+        val currentUserEmail = userPreferences.getLoggedInEmail()
+        if (currentUserEmail.isNullOrEmpty()) {
+            _formStatus.value = FormStatus.Error("Anda harus login terlebih dahulu")
+            return
+        }
+
         viewModelScope.launch {
             try {
                 val lostItem = LostItemEntity(
@@ -76,7 +85,8 @@ class LostItemViewModel(application: Application) : AndroidViewModel(application
                     waktu = waktu,
                     deskripsi = deskripsi,
                     imagePath = imageUri.toString(),
-                    status = "lost"
+                    status = "lost",
+                    userEmail = currentUserEmail
                 )
 
                 repository.insert(lostItem)

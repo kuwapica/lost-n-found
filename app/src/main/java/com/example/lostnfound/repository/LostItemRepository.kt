@@ -1,9 +1,7 @@
 package com.example.lostnfound.repository
 
 import androidx.lifecycle.LiveData
-import androidx.room.Query
 import com.example.lostnfound.dao.LostItemDao
-import com.example.lostnfound.data.model.FormStatus
 import com.example.lostnfound.entity.LostItemEntity
 
 class LostItemRepository(private val lostItemDao: LostItemDao) {

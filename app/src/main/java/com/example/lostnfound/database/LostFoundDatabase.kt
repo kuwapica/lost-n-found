@@ -10,13 +10,14 @@ import com.example.lostnfound.entity.FoundItemEntity
 import com.example.lostnfound.entity.LostItemEntity
 
 @Database(
-    entities = [LostItemEntity::class, FoundItemEntity::class], //kalo ada entity lain tambahin aja
-    version = 2,
+    entities = [LostItemEntity::class, FoundItemEntity::class, User::class], //kalo ada entity lain tambahin aja
+    version = 3,
     exportSchema = false
 )
 abstract class LostFoundDatabase : RoomDatabase() {
     abstract fun lostItemDao() : LostItemDao // ini juga tambahin aja
     abstract fun foundItemDao() : FoundItemDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile

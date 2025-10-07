@@ -10,7 +10,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.lostnfound.database.AppDatabase
+import com.example.lostnfound.database.LostFoundDatabase
 import com.example.lostnfound.databinding.FragmentProfileBinding
 import com.example.lostnfound.utils.UserPreferences
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var database: AppDatabase
+    private lateinit var database: LostFoundDatabase
     private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         // Initialize
-        database = AppDatabase.getDatabase(requireContext())
+        database = LostFoundDatabase.getDatabase(requireContext())
         userPreferences = UserPreferences(requireContext())
 
         return binding.root

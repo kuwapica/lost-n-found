@@ -16,7 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import com.example.lostnfound.database.AppDatabase
+import com.example.lostnfound.database.LostFoundDatabase
 import com.example.lostnfound.database.User
 
 class SignUpActivity : AppCompatActivity() {
@@ -63,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
             if (validateSignUp(nama, email, password, confirmPassword)) {
                 // Simpan user ke database
                 lifecycleScope.launch {
-                    val database = AppDatabase.getDatabase(this@SignUpActivity)
+                    val database = LostFoundDatabase.getDatabase(this@SignUpActivity)
 
                     // Cek apakah email sudah terdaftar
                     val emailExists = database.userDao().isEmailExists(email)

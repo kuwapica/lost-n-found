@@ -55,6 +55,14 @@ class DetailFragment : Fragment() {
                 }
             }
         }
+        viewModel.userData.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                binding.tvUserName.text = user.nama
+            } else {
+                binding.tvUserName.text = "Pengguna Tidak Diketahui"
+            }
+        }
+
     }
     private fun bindFoundItem(item: FoundItemEntity) {
         binding.tvDetailNamaBarang.text = item.namaBarang

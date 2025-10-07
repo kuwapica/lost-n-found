@@ -76,6 +76,7 @@
                     android:text="@string/label_up_foto"
                     android:fontFamily="@font/nunito_sans"
                     android:textColor="@color/grey"
+                    android:textStyle="bold"
                     android:textSize="18sp"
                     android:drawableStart="@drawable/ic_upload"
                     android:drawablePadding="8dp"
@@ -205,6 +206,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_waktu"/>
 
+        <TextView
+            android:id="@+id/tv_deskripsi_keterangan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/ket_deskripsi"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/dark_grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_deskripsi"
             android:layout_width="0dp"
@@ -217,7 +232,7 @@
             app:boxCornerRadiusTopStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi">
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_keterangan">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_deskripsi"
                 android:layout_width="match_parent"

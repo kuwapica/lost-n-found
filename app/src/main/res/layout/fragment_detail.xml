@@ -29,19 +29,56 @@
                 app:tint="@color/black" />
         </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_user_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+            <ImageView
+                android:id="@+id/iv_user_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"
+                tools:srcCompat="@drawable/ic_person"
+                android:background="@color/grey"
+                android:contentDescription="Ikon Profil Pengguna"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/nunito_sans"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/cv_user_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_user_icon"
+            app:layout_constraintBottom_toBottomOf="@id/cv_user_icon"
+            tools:text="Nama Pengguna" />
+
         <!-- DIUBAH: Komentar yang salah posisi telah dipindahkan -->
         <!-- ImageView ini berada di bawah tombol kembali -->
         <ImageView
             android:id="@+id/iv_detail_foto"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:layout_marginTop="16dp"
             android:background="#CCCCCC"
             android:contentDescription="Foto barang detail"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack" />
+            app:layout_constraintTop_toBottomOf="@id/cv_user_icon" />
 
         <!-- Sisa layout tidak perlu diubah -->
         <TextView

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lostnfound.database.AppDatabase
+import com.example.lostnfound.database.LostFoundDatabase
 import com.example.lostnfound.databinding.FragmentEditNamaBinding
 import com.example.lostnfound.utils.UserPreferences
 import com.google.android.material.snackbar.Snackbar
@@ -26,7 +27,7 @@ class EditNamaFragment : Fragment() {
     private val binding get() = _binding!!
     private var isSaved = false
 
-    private lateinit var database: AppDatabase
+    private lateinit var database: LostFoundDatabase
     private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
@@ -36,7 +37,7 @@ class EditNamaFragment : Fragment() {
         _binding = FragmentEditNamaBinding.inflate(inflater, container, false)
 
         // Initialize database & preferences
-        database = AppDatabase.getDatabase(requireContext())
+        database = LostFoundDatabase.getDatabase(requireContext())
         userPreferences = UserPreferences(requireContext())
 
         return binding.root
