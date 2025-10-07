@@ -14,9 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.lifecycleScope
+import com.example.lostnfound.database.AppDatabase
+import com.example.lostnfound.database.LostFoundDatabase
+import com.example.lostnfound.utils.UserPreferences
+import kotlinx.coroutines.launch
 
 class SignInActivity : AppCompatActivity() {
 
+    private lateinit var database: LostFoundDatabase
+    private lateinit var userPreferences: UserPreferences
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnMasuk: Button
@@ -25,6 +32,10 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        // Initialize database & preferences
+        database = LostFoundDatabase.getDatabase(this)
+        userPreferences = UserPreferences(this)
 
         // Initialize views
         etEmail = findViewById(R.id.etEmailSignIn)
@@ -50,22 +61,31 @@ class SignInActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
 
             if (validateSignIn(email, password)) {
-                // TODO: Validasi dengan database (cek apakah email & password cocok)
+                // Cek login ke database
+                lifecycleScope.launch {
+                    val user = database.userDao().login(email, password)
 
-                // Simpan session login menggunakan UserPreferences
-                val userPreferences = com.example.lostnfound.utils.UserPreferences(this)
-                userPreferences.saveLoginSession(email) // <-- INI YANG PENTING!
+                    runOnUiThread {
+                        if (user != null) {
+                            // Login berhasil - simpan session
+                            userPreferences.saveLoginSession(user.email)
 
-                // Show success snackbar
-                showSuccessSnackbar("Login berhasil!")
+                            // Show success snackbar
+                            showCustomSnackbar("Login berhasil!", R.color.yellow)
 
-                // Navigate to MainActivity after 1 second
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-                }, 1000)
+                            // Navigate to MainActivity after 1 second
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                finish()
+                            }, 1000)
+                        } else {
+                            // Login gagal - email atau password salah
+                            showCustomSnackbar("Email atau password salah", R.color.red)
+                        }
+                    }
+                }
             }
         }
     }
@@ -93,33 +113,25 @@ class SignInActivity : AppCompatActivity() {
         return regex.matches(email)
     }
 
-    private fun showSuccessSnackbar(message: String) {
-        // ... (kode snackbar Anda sudah benar, tidak perlu diubah)
+    private fun showCustomSnackbar(message: String, colorRes: Int) {
         val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
-        snackbarView.backgroundTintList=null
+        snackbarView.backgroundTintList = null
 
-        // Set background color kuning
-        snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))
-
-        // Set padding untuk membuat snackbar lebih besar
+        snackbarView.setBackgroundColor(ContextCompat.getColor(this, colorRes))
         snackbarView.setPadding(32, 48, 32, 48)
-
-        // Set minimum height untuk snackbar
         snackbarView.minimumHeight = 120
 
-        // Ambil TextView dari Snackbar dan customize
         val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(ContextCompat.getColor(this, R.color.black))
         textView.typeface = ResourcesCompat.getFont(this, R.font.nunito_sans)
-        textView.textSize = 18f // Ukuran text lebih besar
-        textView.gravity = Gravity.CENTER // Text di tengah
+        textView.textSize = 18f
+        textView.gravity = Gravity.CENTER
         textView.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
 
-        // Set layout params untuk membuat text lebih center
         val params = snackbarView.layoutParams as FrameLayout.LayoutParams
         params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-        params.topMargin = 100 // Margin dari atas
+        params.topMargin = 100
         params.width = FrameLayout.LayoutParams.MATCH_PARENT
         snackbarView.layoutParams = params
 
